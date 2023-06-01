@@ -1,27 +1,29 @@
-var express = require("express");
-var app = express();
-var port = process.env.PORT || 3700;
+const express = require('express');
+const bodyParser = require('body-parser');
 
-// Set view of '/' end point
-app.set('views', __dirname + '/views');
-app.set('view engine', "jade");
-app.engine('jade', require('jade').__express);
-app.get("/", function(req, res){
-    res.render("page");
+const app = express();
+const port = 7000; // You can change the port number if needed
+
+// Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Redirect root URL to the form submission route
+app.get('/', (req, res) => {
+  res.redirect('/submit-form');
 });
 
-// use our puclic/chat.js file as listener
-app.use(express.static(__dirname + '/public'));
-// Set port
-var midPort = app.listen(port, function () {
-    console.log('Node.js listening on port ' + port);
-})
+// Define a route to handle form submission
+app.post('/submit-form', (req, res) => {
+  const formData = req.body; // Access form data from the request body
+  // Store or process the form data as needed
+  console.log(formData); // Example: Print the form data to the console
 
-var io = require('socket.io').listen(midPort);
-// set up socket connection
-io.sockets.on('connection', function (socket) {
-    socket.emit('message', { message: ' Hii!! Chat here' });
-    socket.on('send', function (data) {
-        io.sockets.emit('message', data);
-    });
+  // Send a response back to the client
+ res.send('You submited the form');
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Form</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h1>My Form</h1>
+    <form action="http://localhost:7000/submit-form" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Your name">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Your email">
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" placeholder="Your message"></textarea>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>   
